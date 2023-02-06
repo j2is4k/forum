@@ -1,0 +1,192 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>app_exe — Application Executable &mdash; Forum Documentation 1.9.3a documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Forum Documentation 1.9.3a documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Forum Documentation 1.9.3a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">app_exe</span></tt> &#8212; Application Executable</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#functionality">Functionality</a></li>
+<li><a class="reference internal" href="#api-description">API description</a></li>
+<li><a class="reference internal" href="#quality-assurance">Quality assurance</a></li>
+<li><a class="reference internal" href="#selftest">Selftest</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/api/app_exe.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-app_exe">
+<span id="app-exe-application-executable"></span><h1><a class="reference internal" href="#module-app_exe" title="app_exe: Application Executable. (Windows)"><tt class="xref py py-mod docutils literal"><span class="pre">app_exe</span></tt></a> &#8212; Application Executable<a class="headerlink" href="#module-app_exe" title="Permalink to this headline">¶</a></h1>
+<div class="sidebar">
+<p class="first sidebar-title">Summary</p>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Files:</th><td class="field-body"><a class="reference internal" href="app_exe_source.html"><em>C source</em></a>, <a class="reference internal" href="run_source.html"><em>run example</em></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Target:</th><td class="field-body">developers</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status:</th><td class="field-body">mature</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr class="docutils" />
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>Functionality requirements are described in the dedicated document: <tt class="xref download docutils literal"><span class="pre">SDD</span> <span class="pre">Application</span> <span class="pre">Executable</span></tt>.</p>
+</div>
+<div class="section" id="functionality">
+<h2>Functionality<a class="headerlink" href="#functionality" title="Permalink to this headline">¶</a></h2>
+<p>Application Executable is the point of entry for the user, who starts the application by double clicking it or uses the exe with startup parameters. The compiled executable than calls the <a class="reference internal" href="run_source.html"><em>python file</em></a> starting the actual application in the python environment.</p>
+<p>Rather than using pythonic approach with py2exe, C module with Visual Studio 2010 solution is created to reduce the size of the target executable, as the py2exe <em>in-compiles</em> the python interpreter in the generated exe, therefore increases the exe size to ~10MB, and enable the icon assignment.</p>
+<p>The application start can be invoked as follows:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Double clicking it</li>
+<li>Starting the exe within the command line from parent or any other directory</li>
+<li>Starting the exe within the additional script path parameter; path can be relative or absolute, the quotes presence is considered</li>
+<li>Starting from arbitrary locations containing spaces in path, directly, with absolute or relative paths</li>
+</ul>
+</div></blockquote>
+<p>The application responsibilities are to:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Keep track on CWD and construct valid absolute paths</li>
+<li>Quote the (sub-) paths if space(s) are contained</li>
+<li>Trim unwanted leading and trailing white space characters</li>
+<li>Check if the maximum of allowed argv input parameters has been exeeded</li>
+<li>Check if preferred python interpreter (the one coming with the distribution) is present, otherwise the system default installation is used</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="api-description">
+<h2>API description<a class="headerlink" href="#api-description" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="quality-assurance">
+<h2>Quality assurance<a class="headerlink" href="#quality-assurance" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="selftest">
+<h2>Selftest<a class="headerlink" href="#selftest" title="Permalink to this headline">¶</a></h2>
+<p>You can start the generated exe at:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">source</span><span class="o">/</span><span class="n">app_exe</span><span class="o">/</span><span class="n">Release</span><span class="o">/</span><span class="n">app_starter</span><span class="o">.</span><span class="n">exe</span>
+</pre></div>
+</div>
+<p>Considered are following possibilities:</p>
+<div class="highlight-python"><pre>C:\test\with a space&gt; C:\test\with a space\app_starter.exe
+C:\test\with a space&gt; app_starter.exe
+C:\test&gt;"with a space\app_starter.exe"
+C:\test&gt;"with a space\app_starter.exe" some_test\hello\script.py</pre>
+</div>
+<p>Expected output:</p>
+<div class="highlight-python"><pre>c:\test&gt;"with a space\app_starter.exe" some_test\hello\script.py
+*WARNING: internal Python at "with a space\python\python.exe" not found, using external interpreter.
+
+(C system)
+  command line: "with a space\run.py" some_test\hello\script.py
+
+(Python spawnv)
+  mode: P_NOWAIT
+  exe: C:\Python27\pythonw.exe
+  PYEXE: "C:\Python27\pythonw.exe"
+  Application: "C:\test\with a space\app.pyw"
+  script_path: "*some_test\hello\script.py"
+  bb: False
+  app. logging level: INFO
+  cc: False
+  dd: False</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Forum Documentation 1.9.3a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, noriba GmbH.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

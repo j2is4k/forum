@@ -1,0 +1,20 @@
+Macro Unittest Source code
+===========================
+
+Instrument unittest
+-------------------
+
+.. literalinclude:: ../../../source/unittest/test_macro_instrument.py
+    :linenos:
+
+Panel unittest
+--------------
+    
+.. literalinclude:: ../../../source/unittest/test_macro_panel.py
+    :linenos:
+
+Toolbar unittest
+----------------
+    
+.. literalinclude:: ../../../source/unittest/test_macro_toolbar.py
+    :linenos:

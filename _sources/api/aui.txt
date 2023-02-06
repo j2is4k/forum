@@ -1,0 +1,99 @@
+:mod:`aui` --- AUI Window manager
+*********************************
+
+.. module:: aui
+   :synopsis: AUI Window manager.
+   :platform: Windows
+
+.. moduleauthor:: Jiri Sostok <jiri.sostok@noriba-it.com>
+
+.. sidebar:: Summary
+
+    :Files: :doc:`source <aui_source>`, :doc:`unittest <test_aui_source>`
+    :Target: developers 
+    :Status: mature
+    
+
+--------------
+
+Requirements
+============
+
+Functionality requirements are described in the dedicated document: :download:`SDD Window Manager <../../../requirements/SDD_Window_Manager.doc >`.
+
+Functionality
+=============
+
+The wx.aui module is an `Advanced User Interface library <http://xoomer.virgilio.it/infinity77/wxPython/aui/wx.aui.AuiManager.html>`_ that aims to implement "cutting-edge" interface usability and design features so developers can quickly and easily create beautiful and usable application interfaces.
+
+**Vision and Design Principles**
+
+wx.aui encapsulate the following aspects of the user interface:
+
+ * Frame Management: Frame management provides the means to open, move and hide common controls that are needed to interact with the document, and allow these configurations to be saved into different perspectives and loaded at a later time.
+ * Toolbars: Toolbars are a specialized subset of the frame management system and should behave similarly to other docked components. However, they also require additional functionality, such as "spring-loaded" rebar support, "chevron" buttons and end-user customizability.
+ * Modeless Controls: Modeless controls expose a tool palette or set of options that float above the application content while allowing it to be accessed. Usually accessed by the toolbar, these controls disappear when an option is selected, but may also be "torn off" the toolbar into a floating frame of their own.
+ * Look and Feel: Look and feel encompasses the way controls are drawn, both when shown statically as well as when they are being moved. This aspect of user interface design incorporates "special effects" such as transparent window dragging as well as frame animation.
+ * ui adheres to the following principles
+ * Use native floating frames to obtain a native look and feel for all platforms;
+ * Use existing wxPython code where possible, such as sizer implementation for frame management;
+ * Use standard wxPython coding conventions
+
+In package delivery contains features: 
+
+ * Manager 
+ * Docking of widgets
+ * Loading and persistent saving of settings
+ * OnClose procedures
+ * Perspective support (snapshot, factory default, editor only, etc.)
+
+.. note:: Preconditions is to have Python > 2.7.x and wxPython >= 2.8.9.1 and wx AGW version >= 0.9.2.
+
+ 
+.. seealso:: 
+
+    * `[1] <http://xoomer.virgilio.it/infinity77/AGW_Docs/index.html>`_ AGW Documentation 
+    * `[2] <http://xoomer.virgilio.it/infinity77/AGW_Docs/aui.framemanager.AuiManager.html>`_ AGW AUI Manager Documentation
+    * `[3] <http://svn.wxwidgets.org/viewvc/wx/wxPython/3rdParty/AGW>`_ Latest AGW distribution on SVN
+    * `[4] <http://wx.ibaku.net/changelog/?t=2&d=AG>`_ AFW Change Log
+
+
+API description
+===============
+
+.. figure:: ../images/classes_AUI.png
+    :align: center
+    
+    Class UML diagram
+
+.. autofunction:: aui.get_frame
+
+.. autoclass:: aui.AUIFrame
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Quality assurance 
+=================
+
+Code quality standard test::
+	
+	support/pylint_aui.bat
+	
+.. note:: Please note that `C0103 coding warning <http://pylint-messages.wikidot.com/messages:c0103>`_ has been disabled, as the code is inherited from wxPython using ``CamelCase`` for object names. According to `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_, ``underscore_separated_names`` should be used, but the document recommends to keep in line with coding style of extended code.
+    
+:doc:`Unittested <unittest>` code::
+
+	source/unittest/test_aui.py
+	
+Unittest coverage::
+
+	support/cover_aui.bat
+	
+Selftest
+========
+
+Starting the self test through the unittest support code::
+
+    support/selftest_aui.bat

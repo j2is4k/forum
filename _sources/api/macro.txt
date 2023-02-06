@@ -1,0 +1,163 @@
+:mod:`macro` --- Encapsulates user defined helper scripts
+*********************************************************
+
+.. module:: macro
+   :synopsis: Encapsulates user defined helper scripts.
+   :platform: Windows
+
+.. moduleauthor:: Jiri Sostok <jiri.sostok@noriba-it.com>
+
+.. sidebar:: Summary
+
+    :Files: :doc:`source <macro_source>`, :doc:`unittest <test_macro_source>`
+    :Target: developers 
+    :Status: mature
+
+
+--------------
+
+Requirements
+============
+
+Functionality requirements are described in the dedicated document: :download:`SDD Macro <../../../requirements/SDD_Macro.doc >`.
+
+Functionality
+=============
+
+Functionality offered within the macro module can be summarised as follows
+
+ * Contains Editor Instance for pretty formatting, autocomplete etc.
+ * Delivered as App toolbar 
+ * Dialog Widget for macro customisation 
+ * Event Bindings/ Handlers
+ * Generic interface for image getter functions
+ * Instrument Add Dialog Widget
+ * Instrument listing for selection used in macro invocation  
+ * List Control for Image processing 
+ * Macro Frame
+ * Macro Panel, a place holder for all widgets, import, export handlers, shortcuts binding (Insert, F2, Del), general event handlers
+ * Macro definitions stored / loaded from file
+ * Macro source parser
+
+.. note:: Preconditions is to have Python > 2.7.x and wxPython >= 2.8.9.1 and wx AGW version >= 0.9.2.
+
+.. note:: Icons and images as shown on the figure below are not part of the delivery, but the generic interface for binding the images is implemented.
+
+
+API description
+===============
+
+Reference document for a software developer implementing the module into the higher level framework. The following documentation has been generated from the :doc:`macro_source`. 
+
+.. figure:: ../images/classes_Macro.png
+    :align: center
+    :width: 100%
+    
+    Class UML diagram
+    
+Macro code persistence
+----------------------
+
+The macro definitions are stored/loaded to/from a file location specified in constants.py module. The API is specified below
+
+.. autoclass:: macro.DefinitionParser
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+    .. automethod:: __init__
+
+wx GUI widgets
+--------------
+
+The second groupd of the API description focuses on wxPython objects used within the module. You can read the specification from top down as is written or use it as reference library. The top GUI object is the :class:`ToolBar` propagating down to :class:`Frame` and :class:`Panel`. The latest one is the core of the module implementing the classical widgets, dialogs and macro defintion loading and storing. The paragraph is devided to the groups: :ref:`macro-mc`, :ref:`macro-dc` and :ref:`macro-sc`.
+
+
+.. _macro-mc:
+
+Main classes
++++++++++++++++++++
+
+.. autoclass:: macro.ToolBar
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autoclass:: macro.Frame
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autoclass:: macro.Panel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+.. autoclass:: macro.ListCtrl
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+
+
+.. _macro-dc:
+
+Dialog classes
++++++++++++++++++++++
+
+.. autoclass:: macro.AddDialog
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+.. autoclass:: macro.InstrumentDialog
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. _macro-sc:
+
+Support classes
+++++++++++++++++++++++
+   
+.. autoclass:: macro.Editor
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+.. autoclass:: macro.Validator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+.. autoclass:: macro.Singleton
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Quality assurance 
+=================
+
+Code quality standard test::
+	
+	support/pylint_macro.bat
+	
+.. note:: Please note that `C0103 coding warning <http://pylint-messages.wikidot.com/messages:c0103>`_ has been disabled, as the code is inherited from wxPython using ``CamelCase`` for object names. According to `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_, ``underscore_separated_names`` should be used, but the document recommends to keep in line with coding style of extended code.
+    
+:doc:`Unittested <../unittest>` code::
+
+    source/unittest/test_macro_toolbar.py
+    source/unittest/test_macro_panel.py
+    source/unittest/test_macro_instrument.py
+	
+Unittest coverage::
+
+	support/cover_macro.bat
+	
+Selftest
+========
+
+Starting the self test through the unittest support code::
+
+    support/selftest_macro.bat

@@ -1,0 +1,84 @@
+:mod:`app_exe` --- Application Executable
+*****************************************
+
+.. module:: app_exe
+   :synopsis: Application Executable.
+   :platform: Windows
+
+.. moduleauthor:: Jiri Sostok <jiri.sostok@noriba-it.com>
+
+.. sidebar:: Summary
+
+    :Files: :doc:`C source <app_exe_source>`, :doc:`run example <run_source>`
+    :Target: developers 
+    :Status: mature
+
+
+--------------
+
+Requirements
+============
+
+Functionality requirements are described in the dedicated document: :download:`SDD Application Executable <../../../requirements/SDD_Application_Executable.doc >`.
+
+Functionality
+=============
+
+Application Executable is the point of entry for the user, who starts the application by double clicking it or uses the exe with startup parameters. The compiled executable than calls the :doc:`python file <run_source>` starting the actual application in the python environment.
+
+Rather than using pythonic approach with py2exe, C module with Visual Studio 2010 solution is created to reduce the size of the target executable, as the py2exe *in-compiles* the python interpreter in the generated exe, therefore increases the exe size to ~10MB, and enable the icon assignment. 
+
+The application start can be invoked as follows:
+
+ * Double clicking it
+ * Starting the exe within the command line from parent or any other directory
+ * Starting the exe within the additional script path parameter; path can be relative or absolute, the quotes presence is considered
+ * Starting from arbitrary locations containing spaces in path, directly, with absolute or relative paths
+ 
+The application responsibilities are to: 
+ 
+ * Keep track on CWD and construct valid absolute paths
+ * Quote the (sub-) paths if space(s) are contained
+ * Trim unwanted leading and trailing white space characters
+ * Check if the maximum of allowed argv input parameters has been exeeded
+ * Check if preferred python interpreter (the one coming with the distribution) is present, otherwise the system default installation is used
+ 
+ 
+API description
+===============
+
+Quality assurance 
+=================
+
+Selftest
+========
+
+You can start the generated exe at::
+
+    source/app_exe/Release/app_starter.exe
+    
+Considered are following possibilities::
+
+    C:\test\with a space> C:\test\with a space\app_starter.exe
+    C:\test\with a space> app_starter.exe
+    C:\test>"with a space\app_starter.exe"
+    C:\test>"with a space\app_starter.exe" some_test\hello\script.py
+    
+Expected output::
+
+    c:\test>"with a space\app_starter.exe" some_test\hello\script.py
+    *WARNING: internal Python at "with a space\python\python.exe" not found, using external interpreter.
+
+    (C system)
+      command line: "with a space\run.py" some_test\hello\script.py
+
+    (Python spawnv)
+      mode: P_NOWAIT
+      exe: C:\Python27\pythonw.exe
+      PYEXE: "C:\Python27\pythonw.exe"
+      Application: "C:\test\with a space\app.pyw"
+      script_path: "*some_test\hello\script.py"
+      bb: False
+      app. logging level: INFO
+      cc: False
+      dd: False

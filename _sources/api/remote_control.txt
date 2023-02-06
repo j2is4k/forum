@@ -1,0 +1,111 @@
+:mod:`remote_control` --- Forum Remote Control
+*********************************************************
+
+.. module:: remote_control
+   :synopsis: Forum Remote Control.
+   :platform: Windows
+
+.. moduleauthor:: Jiri Sostok <jiri.sostok@noriba-it.com>
+
+.. sidebar:: Summary
+
+    :Files: :doc:`source <remote_control_source>`
+    :Target: developers 
+    :Status: mature
+
+    
+--------------
+
+Requirements
+============
+
+Functionality
+=============
+
+Main functionality
+------------------
+
+API description
+===============
+
+Reference document for a software developer implementing the module into the higher level framework.
+
+.. figure:: ../images/classes_Editor.png
+    :align: center
+    :width: 100%
+    
+    Class UML diagram
+
+.. autofunction:: remote_control.start_server
+
+.. autofunction:: remote_control.stop_server
+
+	
+Main classes
+------------
+
+.. autoclass:: remote_control.Server
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autoclass:: remote_control.RemoteAccessServer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+	
+.. autoclass:: remote_control.RemoteAccessPointShell
+    :members:
+    :undoc-members:
+    :show-inheritance:
+	
+.. autoclass:: remote_control.RemoteAccessPointInterpreter
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autoclass:: remote_control.AsyncCall
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autoclass:: remote_control.Client
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+.. autoclass:: remote_control.ConnectionPool
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autoclass:: remote_control.AsyncHandler
+    :members:
+    :undoc-members:
+    :show-inheritance:
+	
+Quality assurance 
+=================
+
+Code quality standard test::
+	
+	support/pylint_editor.bat
+	
+.. note:: `C0103 coding warning <http://pylint-messages.wikidot.com/messages:c0103>`_ has been disabled as the code is inherited from wxPython using ``CamelCase`` for object names. According to `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_, ``underscore_separated_names`` should be used, but the document recommends to keep in line with coding style of extended code.
+
+.. note:: `E1101 error <http://pylint-messages.wikidot.com/messages:e1101>`_ has been disabled. The pylint otherwise complains about non-existing members within the :ref:`editor-mixc`, which is misleading.
+    
+:doc:`Unittested <unittest>` code::
+
+	source/unittest/test_editor.py
+	
+Unittest coverage::
+
+	support/cover_editor.bat
+
+Selftest
+========
+
+Starting the self test through the unittest support code::
+
+    support/selftest_editor.bat 

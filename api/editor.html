@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>editor — Styled Text Control &mdash; Forum Documentation 1.9.3a documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Forum Documentation 1.9.3a documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Forum Documentation 1.9.3a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">editor</span></tt> &#8212; Styled Text Control</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#functionality">Functionality</a><ul>
+<li><a class="reference internal" href="#main-functionality">Main functionality</a></li>
+<li><a class="reference internal" href="#inherited-stc-functionality">Inherited STC functionality</a></li>
+<li><a class="reference internal" href="#advanced-autocomplete">Advanced autocomplete</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api-description">API description</a><ul>
+<li><a class="reference internal" href="#mixin-classes">Mixin classes</a></li>
+<li><a class="reference internal" href="#main-classes">Main classes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#quality-assurance">Quality assurance</a></li>
+<li><a class="reference internal" href="#selftest">Selftest</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/api/editor.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-editor">
+<span id="editor-styled-text-control"></span><h1><a class="reference internal" href="#module-editor" title="editor: Styled Text Control. (Windows)"><tt class="xref py py-mod docutils literal"><span class="pre">editor</span></tt></a> &#8212; Styled Text Control<a class="headerlink" href="#module-editor" title="Permalink to this headline">¶</a></h1>
+<div class="sidebar">
+<p class="first sidebar-title">Summary</p>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Files:</th><td class="field-body"><a class="reference internal" href="editor_source.html"><em>source</em></a>, <a class="reference internal" href="test_editor_source.html"><em>unittest</em></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Target:</th><td class="field-body">developers</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status:</th><td class="field-body">mature</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr class="docutils" />
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>Functionality requirements are described in the dedicated document: <tt class="xref download docutils literal"><span class="pre">SDD</span> <span class="pre">Editor</span></tt>.</p>
+</div>
+<div class="section" id="functionality">
+<h2>Functionality<a class="headerlink" href="#functionality" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="main-functionality">
+<h3>Main functionality<a class="headerlink" href="#main-functionality" title="Permalink to this headline">¶</a></h3>
+<p>Editor module contains following main functionality:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#editor-aac"><em>Advanced autocomplete</em></a></li>
+<li>Autocomplete manual call support</li>
+<li>Autocomplete with <tt class="docutils literal"><span class="pre">:</span></tt> in order to support SCPI remote commands auto complete</li>
+<li>Autointendation after relevant keyword detection</li>
+<li>Bracket pairs/unpairs notification</li>
+<li>Folding/Unfolding on the top level (Folding Margin clicks (Ctrl + Shift modifieres))</li>
+<li>Goto Line Dialog (Ctrl + L)</li>
+<li>Line Highlighting</li>
+<li>Line Numbers</li>
+<li>Margin and markers definitions for bookmark, breakpoint active and breakpoint inactive</li>
+<li>Markers line jumps (Ctrl + B for bookmarks, Alt + B for breakpoints)</li>
+<li>OnChar bindings</li>
+<li>Python keywords highlighting (print, if, else, etc.)</li>
+<li>Unicode Support</li>
+<li>Word selection with Callback registration</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="inherited-stc-functionality">
+<h3>Inherited STC functionality<a class="headerlink" href="#inherited-stc-functionality" title="Permalink to this headline">¶</a></h3>
+<p>Furthermore, the editor base class supports following features, for the complete list, please refer to <a class="reference external" href="http://www.scintilla.org/ScintillaDoc.html">Scintilla Documentation</a>:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Annotations</li>
+<li>Background loading and saving</li>
+<li>Call tips</li>
+<li>Caret, selection, and hotspot styles</li>
+<li>Cut, copy and paste</li>
+<li>Error handling</li>
+<li>Indicators</li>
+<li>Key bindings</li>
+<li>Keyboard commands</li>
+<li>Line endings</li>
+<li>Line wrapping</li>
+<li>Long lines</li>
+<li>Macro recording</li>
+<li>Multiple Selection and Virtual Space</li>
+<li>Multiple views</li>
+<li>Popup edit menu</li>
+<li>Scrolling and automatic scrolling</li>
+<li>Searching and replacing</li>
+<li>Selection and information</li>
+<li>Styling and Style definition</li>
+<li>Tabs and Indentation Guides</li>
+<li>Text retrieval and modification</li>
+<li>Undo and Redo</li>
+<li>User lists</li>
+<li>Zooming</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="advanced-autocomplete">
+<span id="editor-aac"></span><h3>Advanced autocomplete<a class="headerlink" href="#advanced-autocomplete" title="Permalink to this headline">¶</a></h3>
+<p>There are two possible approaches how the base for autocomplete is retrieved. One, implemented and described here, is that the namespace dictionary reference is forwarded to <tt class="xref py py-class docutils literal"><span class="pre">AutoCompleteMixin</span></tt> class constructor and is used as a lookup source for every autocomplete/autocalltip request. Another way, would be to parse the document content on every reasonable occasion, e.g. EVT_KEY_DOWN, and generate/update the namespace. The benefit would be to have for example the class&#8217;s interface being currently written also available for the autocomplete. Generally speaking, the second approach is more dynamic than the first one. Finally, the first one has been implemented as the &#8216;to-be-created&#8217; master application will use the editor and shell sharing the same namespace, which suites the namespace referencing approach better. The advanced autocomplete meets following requirements:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">the object names contained (initiated) in the global namespace are part of the autocomplete functionality such that by typing the word, the input assistant already activates; this is realised with <em>key</em> and <em>char event handler</em> (see <tt class="xref py py-meth docutils literal"><span class="pre">AutoCompleteMixin.OnChar()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">Editor.OnKeyDown()</span></tt>)</p>
+</li>
+<li><p class="first">statements like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">module</span>
+<span class="kn">from</span> <span class="nn">module</span> <span class="kn">import</span> <span class="nb">object</span>
+<span class="kn">from</span> <span class="nn">module</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">module</span> <span class="kn">import</span> <span class="n">object1</span> <span class="k">as</span> <span class="n">object2</span>
+<span class="kn">from</span> <span class="nn">module.module1</span> <span class="kn">import</span> <span class="n">module2</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div>imports the objects interfaces for autocomplete list. E.g. writing &#8220;import os&#8221; will resolve in internal list update leading to selection option of &#8220;os&#8221; after typing the &#8220;o&#8221; character</div></blockquote>
+<ul class="simple">
+<li>the editor support also the autocomplete in terms of list of exception types, i.e. &#8220;except&lt;space&gt;&#8221; and &#8220;raise&lt;space&gt;&#8221; resolves in autocomplete listing ArithemticError, ZeroDivisionError, etc.</li>
+</ul>
+</div></blockquote>
+<p>Support of having autocomplete functionality for <strong>VISA Remote Command</strong> syntaxes has been added. Use the <tt class="xref py py-meth docutils literal"><span class="pre">AutoCompleteMixin.set_remote_list()</span></tt> method to feed the list into the instance. The format of the list has to have certain structure, which is not 100% equivalent to the output of <em>&#8220;syst:help:head?&#8221;</em> remote command, as shown in the example file located <tt class="xref download docutils literal"><span class="pre">here</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Preconditions is to have Python &gt; 2.7.x and wxPython &gt;= 2.8.9.1.</p>
+</div>
+</div>
+</div>
+<div class="section" id="api-description">
+<h2>API description<a class="headerlink" href="#api-description" title="Permalink to this headline">¶</a></h2>
+<p>Reference document for a software developer implementing the module into the higher level framework. The following documentation has been generated from the <a class="reference internal" href="editor_source.html"><em>Editor Source code</em></a>. The module is devided into the two groups <a class="reference internal" href="#editor-mixc"><em>Mixin classes</em></a> and <a class="reference internal" href="#editor-mainc"><em>Main classes</em></a>. The idea behind is to use The <tt class="xref py py-class docutils literal"><span class="pre">EditorBase</span></tt> class as the direct descendor of the <a class="reference external" href="http://www.scintilla.org/ScintillaDoc.html">STC&#8217;s Styled Text Control</a> class, where the <tt class="xref py py-class docutils literal"><span class="pre">Editor</span></tt> uses additionally the capabilites of all the <a class="reference internal" href="#editor-mixc"><em>Mixin classes</em></a>.</p>
+<div class="figure align-center">
+<img alt="../_images/classes_Editor.png" src="../_images/classes_Editor.png" style="width: 100%;" />
+<p class="caption">Class UML diagram</p>
+</div>
+<div class="section" id="mixin-classes">
+<span id="editor-mixc"></span><h3>Mixin classes<a class="headerlink" href="#mixin-classes" title="Permalink to this headline">¶</a></h3>
+<p>Mixin classes are intended to work with the <tt class="xref py py-class docutils literal"><span class="pre">EditorBase</span></tt> interface only. The reason for creating the mixin objects is to devide the functionality of particular features and increase the code readability.</p>
+</div>
+<div class="section" id="main-classes">
+<span id="editor-mainc"></span><h3>Main classes<a class="headerlink" href="#main-classes" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="quality-assurance">
+<h2>Quality assurance<a class="headerlink" href="#quality-assurance" title="Permalink to this headline">¶</a></h2>
+<p>Code quality standard test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">support</span><span class="o">/</span><span class="n">pylint_editor</span><span class="o">.</span><span class="n">bat</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><a class="reference external" href="http://pylint-messages.wikidot.com/messages:c0103">C0103 coding warning</a> has been disabled as the code is inherited from wxPython using <tt class="docutils literal"><span class="pre">CamelCase</span></tt> for object names. According to <a class="reference external" href="http://www.python.org/dev/peps/pep-0008/">PEP8</a>, <tt class="docutils literal"><span class="pre">underscore_separated_names</span></tt> should be used, but the document recommends to keep in line with coding style of extended code.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><a class="reference external" href="http://pylint-messages.wikidot.com/messages:e1101">E1101 error</a> has been disabled. The pylint otherwise complains about non-existing members within the <a class="reference internal" href="#editor-mixc"><em>Mixin classes</em></a>, which is misleading.</p>
+</div>
+<p><tt class="xref doc docutils literal"><span class="pre">Unittested</span></tt> code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">source</span><span class="o">/</span><span class="n">unittest</span><span class="o">/</span><span class="n">test_editor</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Unittest coverage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">support</span><span class="o">/</span><span class="n">cover_editor</span><span class="o">.</span><span class="n">bat</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="selftest">
+<h2>Selftest<a class="headerlink" href="#selftest" title="Permalink to this headline">¶</a></h2>
+<p>Starting the self test through the unittest support code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">support</span><span class="o">/</span><span class="n">selftest_editor</span><span class="o">.</span><span class="n">bat</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Forum Documentation 1.9.3a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, noriba GmbH.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

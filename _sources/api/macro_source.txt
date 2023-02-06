@@ -1,0 +1,5 @@
+Macro Source code
+=================
+
+.. literalinclude:: ../../../source/priv/macro.py
+    :linenos:

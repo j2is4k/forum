@@ -1,0 +1,205 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>aui — AUI Window manager &mdash; Forum Documentation 1.9.3a documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Forum Documentation 1.9.3a documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Forum Documentation 1.9.3a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">aui</span></tt> &#8212; AUI Window manager</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#functionality">Functionality</a></li>
+<li><a class="reference internal" href="#api-description">API description</a></li>
+<li><a class="reference internal" href="#quality-assurance">Quality assurance</a></li>
+<li><a class="reference internal" href="#selftest">Selftest</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/api/aui.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-aui">
+<span id="aui-aui-window-manager"></span><h1><a class="reference internal" href="#module-aui" title="aui: AUI Window manager. (Windows)"><tt class="xref py py-mod docutils literal"><span class="pre">aui</span></tt></a> &#8212; AUI Window manager<a class="headerlink" href="#module-aui" title="Permalink to this headline">¶</a></h1>
+<div class="sidebar">
+<p class="first sidebar-title">Summary</p>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Files:</th><td class="field-body"><a class="reference internal" href="aui_source.html"><em>source</em></a>, <a class="reference internal" href="test_aui_source.html"><em>unittest</em></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Target:</th><td class="field-body">developers</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status:</th><td class="field-body">mature</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr class="docutils" />
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>Functionality requirements are described in the dedicated document: <tt class="xref download docutils literal"><span class="pre">SDD</span> <span class="pre">Window</span> <span class="pre">Manager</span></tt>.</p>
+</div>
+<div class="section" id="functionality">
+<h2>Functionality<a class="headerlink" href="#functionality" title="Permalink to this headline">¶</a></h2>
+<p>The wx.aui module is an <a class="reference external" href="http://xoomer.virgilio.it/infinity77/wxPython/aui/wx.aui.AuiManager.html">Advanced User Interface library</a> that aims to implement &#8220;cutting-edge&#8221; interface usability and design features so developers can quickly and easily create beautiful and usable application interfaces.</p>
+<p><strong>Vision and Design Principles</strong></p>
+<p>wx.aui encapsulate the following aspects of the user interface:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Frame Management: Frame management provides the means to open, move and hide common controls that are needed to interact with the document, and allow these configurations to be saved into different perspectives and loaded at a later time.</li>
+<li>Toolbars: Toolbars are a specialized subset of the frame management system and should behave similarly to other docked components. However, they also require additional functionality, such as &#8220;spring-loaded&#8221; rebar support, &#8220;chevron&#8221; buttons and end-user customizability.</li>
+<li>Modeless Controls: Modeless controls expose a tool palette or set of options that float above the application content while allowing it to be accessed. Usually accessed by the toolbar, these controls disappear when an option is selected, but may also be &#8220;torn off&#8221; the toolbar into a floating frame of their own.</li>
+<li>Look and Feel: Look and feel encompasses the way controls are drawn, both when shown statically as well as when they are being moved. This aspect of user interface design incorporates &#8220;special effects&#8221; such as transparent window dragging as well as frame animation.</li>
+<li>ui adheres to the following principles</li>
+<li>Use native floating frames to obtain a native look and feel for all platforms;</li>
+<li>Use existing wxPython code where possible, such as sizer implementation for frame management;</li>
+<li>Use standard wxPython coding conventions</li>
+</ul>
+</div></blockquote>
+<p>In package delivery contains features:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Manager</li>
+<li>Docking of widgets</li>
+<li>Loading and persistent saving of settings</li>
+<li>OnClose procedures</li>
+<li>Perspective support (snapshot, factory default, editor only, etc.)</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Preconditions is to have Python &gt; 2.7.x and wxPython &gt;= 2.8.9.1 and wx AGW version &gt;= 0.9.2.</p>
+</div>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<ul class="last simple">
+<li><a class="reference external" href="http://xoomer.virgilio.it/infinity77/AGW_Docs/index.html">[1]</a> AGW Documentation</li>
+<li><a class="reference external" href="http://xoomer.virgilio.it/infinity77/AGW_Docs/aui.framemanager.AuiManager.html">[2]</a> AGW AUI Manager Documentation</li>
+<li><a class="reference external" href="http://svn.wxwidgets.org/viewvc/wx/wxPython/3rdParty/AGW">[3]</a> Latest AGW distribution on SVN</li>
+<li><a class="reference external" href="http://wx.ibaku.net/changelog/?t=2&amp;d=AG">[4]</a> AFW Change Log</li>
+</ul>
+</div>
+</div>
+<div class="section" id="api-description">
+<h2>API description<a class="headerlink" href="#api-description" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center">
+<img alt="../_images/classes_AUI.png" src="../_images/classes_AUI.png" />
+<p class="caption">Class UML diagram</p>
+</div>
+</div>
+<div class="section" id="quality-assurance">
+<h2>Quality assurance<a class="headerlink" href="#quality-assurance" title="Permalink to this headline">¶</a></h2>
+<p>Code quality standard test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">support</span><span class="o">/</span><span class="n">pylint_aui</span><span class="o">.</span><span class="n">bat</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Please note that <a class="reference external" href="http://pylint-messages.wikidot.com/messages:c0103">C0103 coding warning</a> has been disabled, as the code is inherited from wxPython using <tt class="docutils literal"><span class="pre">CamelCase</span></tt> for object names. According to <a class="reference external" href="http://www.python.org/dev/peps/pep-0008/">PEP8</a>, <tt class="docutils literal"><span class="pre">underscore_separated_names</span></tt> should be used, but the document recommends to keep in line with coding style of extended code.</p>
+</div>
+<p><tt class="xref doc docutils literal"><span class="pre">Unittested</span></tt> code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">source</span><span class="o">/</span><span class="n">unittest</span><span class="o">/</span><span class="n">test_aui</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Unittest coverage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">support</span><span class="o">/</span><span class="n">cover_aui</span><span class="o">.</span><span class="n">bat</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="selftest">
+<h2>Selftest<a class="headerlink" href="#selftest" title="Permalink to this headline">¶</a></h2>
+<p>Starting the self test through the unittest support code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">support</span><span class="o">/</span><span class="n">selftest_aui</span><span class="o">.</span><span class="n">bat</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Forum Documentation 1.9.3a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, noriba GmbH.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

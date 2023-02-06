@@ -1,0 +1,5 @@
+Window Manager Source code
+==========================
+
+.. literalinclude:: ../../../source/priv/aui.py
+    :linenos:

@@ -1,0 +1,69 @@
+.. _installl:
+
+***************
+Getting started
+***************
+
+
+How to donwload
+===============
+
+
+How to install
+==============
+
+FORUM Application runs Python interpreter and requires certain site-packages to operate properly. In best case, you get FORUM Application as msi installer with python distribution. If so, just proceed the installation steps and run the application from your desktop.
+
+You may also receive msi installer without python distribution, than you need to fulfill certain preconditions.
+
+Prerequisites
+-------------
+
+Prerequisite Table:
+Application or package 	Version 	Note
+Python 	2.6.2 	required
+wxPython 	2.8.9.1 	required
+xmlplus 	0.8.4 	optional for SOAP
+ZSI 	2.0 	optional for SOAP
+matplotlib 	0.99 	optional for not only 2D & 3D graphs support
+numpy 	1.3.0 	optional for not only 2D & 3D graphs support
+py2exe 	0.6.9 	optional
+pywin32 	213 	optional
+scipy 	0.7.1RC3 	optional
+NI-488.2 	2.4 	optional for remote device communication. Either none or exact this version
+NI-VISA 	3.6 	optional for remote device communication. Either none or exact this version
+
+
+Application Version
+-------------------
+
+Version of FORUM is in this format: A.B.CD
+
+    A.: major python interpreter change. 1. for Python 2.x series, 2. for Python 3.x series
+    B.: major FORUM feature change
+    C: minor FORUM feature change/important bugfix of B
+    D: beta version, non critical bugfixes of C 
+
+E.g.: 1.8.0a is Python 2.x interpreter version with major feature change since 1.7.0. It is the first and beta version since the 1.7.0. Higher risk of bugs can be expected. 
+
+How to run
+==========
+
+Command-line options
+--------------------
+
+Forum executable located at [Forum distribution]\forum.exe supports following stratup options
+
+.. option:: -m <module>, --module <module>
+
+   Run a module as a script.
+
+
+Figure: Startup help
+
+Image:FORUM-startup_shell_info.jpg
+
+Figure: Startup Shell info 
+   
+   
+Also as shown in figure above, _int.vcp.abort_exit_on_stop function has been added. Exit on stop is not proceeded if unhandled exception in script occours.

@@ -1,0 +1,160 @@
+:mod:`wx_unittest` --- Python and wxPython unittests
+****************************************************
+
+.. module:: wx_unittest
+   :synopsis: Python and wxPython unittests.
+   :platform: Windows
+
+.. moduleauthor:: Jiri Sostok <jiri.sostok@noriba-it.com>
+
+.. sidebar:: Summary
+
+    :Files: :doc:`source <unittest_source>`, :doc:`example <unittest_example_source>`
+    :Target: developers 
+    :Status: mature
+
+--------------
+
+Elaboration
+===========
+
+Standard Unittesting
+--------------------
+
+As a described in `Python Unittest module <http://docs.python.org/2/library/unittest.html>`_: *unittest supports test automation, sharing of setup and shutdown code for tests, aggregation of tests into collections, and independence of the tests from the reporting framework. The unittest module provides classes that make it easy to support these qualities for a set of tests.*
+
+To achieve this, unittest supports some important concepts:
+
+test fixture
+    A test fixture represents the preparation needed to perform one or more tests, and any associate cleanup actions. This may involve, for example, creating temporary or proxy databases, directories, or starting a server process.
+test case
+    A test case is the smallest unit of testing. It checks for a specific response to a particular set of inputs. unittest provides a base class, TestCase, which may be used to create new test cases.
+test suite
+    A test suite is a collection of test cases, test suites, or both. It is used to aggregate tests that should be executed together.
+test runner
+    A test runner is a component which orchestrates the execution of tests and provides the outcome to the user. The runner may use a graphical interface, a textual interface, or return a special value to indicate the results of executing the tests. 
+
+.. _unittest-gui-control:
+
+Unit tests and GUI controls 
+---------------------------
+
+Testing that the GUI portions of an application behave properly is a bit more tricky because GUIs are based around user events, and so we need to find a way to simulate these. There are a couple different ways to approach testing of GUI applications: 
+
+ * To simulate user interaction (e.g. user clicking a button) and test event handlers, use an automated GUI testing tool 
+ * To test that wx or a wx app responds to a particular event handler, simulate the event by firing your own wx event on the window, or just fire the event handler function with a None event
+ * To test your app's interaction with a GUI class, write a stub implementation of the GUI class that returns valid (and if applicable non-valid) results
+ * To test setting and retrieving control state and properties, use traditional unit tests
+
+Implementation
+==============
+
+With the first two approaches as described in :ref:`unittest-gui-control`, over 90% code coverage is achieved. Why not 100%? See :ref:`unittest-coverage`. It is important to mention that the unittests implemented here verify the **GUI, API and functional aspects** of the code under test. If you want to skip the implemntation details and use a working example, refer to :ref:`unittest-how-to`.
+
+In the wxPython, as in every major GUI library, all calls to methods of GUI objects and event handlers need to happen on the main thread. Other aspect is that at some point in time the wx.App instance reaches it's MainLoop which is exited first, when the application is about to terminate. These two restrictions disallows the straight forward way of implementing the unittest in an extra thread, while the application's main thread 'just' handles the GUI portion of the code.
+
+Therefore the wx.CallAfter function is used as a core of the unittests::
+    
+    print wx.CallAfter.__doc__
+
+    Call the specified function after the current and pending event
+    handlers have been completed.  This is also good for making GUI
+    method calls from non-GUI threads.  Any extra positional or
+    keyword args are passed on to the callable when it is called.
+
+:doc:`Source code<unittest_source>` contains the :class:`GUITestCase` class which should be inherited by specific unit tests for certain module. The key is to specify the test functions inside the :meth:`GUITestCase.submit_tests` like this::
+    
+    q = wx_unittest.MasterQueue(self)
+    q.put(self._test_some_functionality)
+    q.proceed()
+
+Note that the method just feeds the internal queue (:class:`MasterQueue`). The :meth:`MasterQueue.proceed` call starts the queue dispatching thread, executing the queue content. Meantime the main thread starts the wx.App.MainLoop() blocking as long as the application lives. Every item in the queue is than posted by the ``master queue thread`` into the main thread via wx.CallAfter call sequencially. ``Master queue thread`` starts the :ref:`unittest-ut-thread` which contains the unittest code as defined in :meth:`GUITestCase.submit_tests`. ``Master queue thread`` responsibilities are:
+
+ * monitor the internal queues status and start the next test as soon as the current finishes, see :ref:`unittest-queues`
+ * check for unittest completition timeout (wx_unittest.UNITTEST_TIMEOUT) and mark the particular unittest as a failure on timeout expiration
+ * start of the :func:`start_exit_watchdog` function, killing the unittest process if the running code can't finish within the wx_unittest.APP_EXIT_TIMEOUT seconds
+
+After the test queue is emtpy, i.e. all tests have been finished, the unittesting procedure ends.
+
+.. figure:: images/classes_wx-unittest.png
+    :align: center
+    :width: 100%
+    
+    Class UML diagram
+
+.. autofunction:: wx_unittest.start_exit_watchdog
+
+.. autoclass:: wx_unittest.MasterQueue
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+.. autoclass:: wx_unittest.GUITestCase
+    :members:
+    :undoc-members:
+    :show-inheritance: 
+
+.. _unittest-ut-thread:
+
+Unittest Thread
+---------------
+
+.. autoclass:: wx_unittest.UnittestThread
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. _unittest-queues:
+
+Normal and Priority Queue 
+-------------------------
+
+The purpose of having two test queues is following. As in ``normal queue``, the unittest code is given, see :meth:`MasterQueue.proceed`, the ``priority queue`` will be flushed with arbitrary code parts of the code contained in the ``normal queue``, if the **wx.CallAfter** is present in that code. Let's imagine the situation that an event handler call within the ``normal queue`` contains the *obj.ShowModal()*. This will cause the application to wait for an input which is normally not defined. However, the unittest code containing the **wx.CallAfter** can be used to do certain actions **after**, in this case, the *obj.ShowModal()* is called. This code portion(s) will be feeded into the ``prority queue`` which is(are) a childern task of a ``normal queue``. First after the ``priority queue`` is empty, the ``normal queue`` item, i.e. code running with this thread instance, can be marked as complete.
+
+.. warning:: The code under test containing the modal widgets not accepting the keyboard focus, can't be tested as this objects can never be interacted from within the unittest. In this case a warning is displayed and unittest ends with a failure. 
+
+.. warning:: The user interaction, click events, etc. can change the window focus which is an unexpected interference and the unittest sequence might loose the execution code context, therefore the testing will fail. Use of a non interactive environment, e.g. Jenkins job, is recommended.
+
+
+The standard unittest concept is changed for the ``test case``, where the standard definition say:
+
+test case
+    *A test case is the smallest unit of testing. It checks for a specific response to a particular set of inputs. unittest provides a base class, TestCase, which may be used to create new test cases.*
+    
+    The wx unittesting realizes the **test case** as **test case set** containg more then one verification. The reason is the overall architecture using the unittest's run method :meth:`GUITestCase.runTest` to :meth:`GUITestCase.submit_tests`, which instanciates and uses the :class:`MasterQueue`. Using the original ``test case`` approach executing an atomar unittest would add huge code redundance and decrease readability.
+
+    
+.. _unittest-how-to:
+
+How to write a wx unittest
+==========================
+
+:doc:`Here <unittest_example_source>` (:download:`download <../../source/unittest/test_example.py>`) is a an example how a user specific unittest code using the :doc:`wx unittests <unittest>` should look like.
+
+
+You will get the following output::
+
+    c:\wx_unittest>test_example.py
+    runTest (__main__.TestGUI) ... ok
+    $_test_frame (__main__.TestGUI) ... ok
+    $_exit_app (__main__.TestGUI) ... ok
+
+    ----------------------------------------------------------------------
+    Ran 4 tests in 0.100s
+
+    OK
+
+.. _unittest-coverage:
+
+Test coverage
+=============
+
+The unit tests do not completely cover the entire code, because of following reasons:
+
+ * certain dialogs and widget objects like wx.MessageBox, wx.MessageDialog, wx.FileDialog don't take the keyboard focus; therefore if this instance types are shown in a modal mode, therefore blocking unless interacted, there is no way for the unittest to react with such an object - these parts of the code under test should be explicitly skipped
+ 
+ * wx.CallAfter and wx.CallLater used in the *code under test*, might break the unittest as the calls will be hooked and started first **after** the actual testcase, see :ref:`unittest-queues`
+ 
+ * it is redundant to test part of the code which belongs to wxPython itself
+ 
+ * certain event handlers are bound to multiple events, e.g. button click (Insert button) and key down (wx.WXK_INSERT); if the event handler is verified by triggering the button click event, triggering the key down event is more or less redundant as the functionality has been already prooved

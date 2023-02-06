@@ -1,0 +1,182 @@
+:mod:`editor` --- Styled Text Control
+*********************************************************
+
+.. module:: editor
+   :synopsis: Styled Text Control.
+   :platform: Windows
+
+.. moduleauthor:: Jiri Sostok <jiri.sostok@noriba-it.com>
+
+.. sidebar:: Summary
+
+    :Files: :doc:`source <editor_source>`, :doc:`unittest <test_editor_source>`
+    :Target: developers 
+    :Status: mature
+
+    
+--------------
+
+Requirements
+============
+
+Functionality requirements are described in the dedicated document: :download:`SDD Editor <../../../requirements/SDD_Editor.doc >`.
+
+Functionality
+=============
+
+Main functionality
+------------------
+
+Editor module contains following main functionality:
+
+ * :ref:`editor-aac`
+ * Autocomplete manual call support
+ * Autocomplete with ``:`` in order to support SCPI remote commands auto complete
+ * Autointendation after relevant keyword detection
+ * Bracket pairs/unpairs notification
+ * Folding/Unfolding on the top level (Folding Margin clicks (Ctrl + Shift modifieres))
+ * Goto Line Dialog (Ctrl + L)
+ * Line Highlighting
+ * Line Numbers
+ * Margin and markers definitions for bookmark, breakpoint active and breakpoint inactive
+ * Markers line jumps (Ctrl + B for bookmarks, Alt + B for breakpoints)
+ * OnChar bindings
+ * Python keywords highlighting (print, if, else, etc.)
+ * Unicode Support
+ * Word selection with Callback registration
+
+Inherited STC functionality
+---------------------------
+
+Furthermore, the editor base class supports following features, for the complete list, please refer to `Scintilla Documentation <http://www.scintilla.org/ScintillaDoc.html>`_:
+
+ * Annotations
+ * Background loading and saving
+ * Call tips
+ * Caret, selection, and hotspot styles
+ * Cut, copy and paste
+ * Error handling
+ * Indicators
+ * Key bindings
+ * Keyboard commands
+ * Line endings
+ * Line wrapping
+ * Long lines
+ * Macro recording
+ * Multiple Selection and Virtual Space
+ * Multiple views
+ * Popup edit menu
+ * Scrolling and automatic scrolling
+ * Searching and replacing
+ * Selection and information
+ * Styling and Style definition
+ * Tabs and Indentation Guides
+ * Text retrieval and modification
+ * Undo and Redo
+ * User lists
+ * Zooming
+
+.. _editor-aac:
+
+Advanced autocomplete
+---------------------
+
+There are two possible approaches how the base for autocomplete is retrieved. One, implemented and described here, is that the namespace dictionary reference is forwarded to :class:`AutoCompleteMixin` class constructor and is used as a lookup source for every autocomplete/autocalltip request. Another way, would be to parse the document content on every reasonable occasion, e.g. EVT_KEY_DOWN, and generate/update the namespace. The benefit would be to have for example the class's interface being currently written also available for the autocomplete. Generally speaking, the second approach is more dynamic than the first one. Finally, the first one has been implemented as the 'to-be-created' master application will use the editor and shell sharing the same namespace, which suites the namespace referencing approach better. The advanced autocomplete meets following requirements:
+
+ * the object names contained (initiated) in the global namespace are part of the autocomplete functionality such that by typing the word, the input assistant already activates; this is realised with *key* and *char event handler* (see :meth:`AutoCompleteMixin.OnChar` and :meth:`Editor.OnKeyDown`)
+ * statements like::
+ 
+	import module
+	from module import object 
+	from module import * 
+	from module import object1 as object2
+	from module.module1 import module2
+  
+  imports the objects interfaces for autocomplete list. E.g. writing "import os" will resolve in internal list update leading to selection option of "os" after typing the "o" character
+ 
+ * the editor support also the autocomplete in terms of list of exception types, i.e. "except<space>" and "raise<space>" resolves in autocomplete listing ArithemticError, ZeroDivisionError, etc.
+
+Support of having autocomplete functionality for **VISA Remote Command** syntaxes has been added. Use the :meth:`AutoCompleteMixin.set_remote_list` method to feed the list into the instance. The format of the list has to have certain structure, which is not 100% equivalent to the output of *"syst:help:head?"* remote command, as shown in the example file located :download:`here <../../../source/unittest/remote_list.test>`.
+    
+.. note:: Preconditions is to have Python > 2.7.x and wxPython >= 2.8.9.1.
+
+
+API description
+===============
+
+Reference document for a software developer implementing the module into the higher level framework. The following documentation has been generated from the :doc:`editor_source`. The module is devided into the two groups :ref:`editor-mixc` and :ref:`editor-mainc`. The idea behind is to use The :class:`EditorBase` class as the direct descendor of the `STC's Styled Text Control <http://www.scintilla.org/ScintillaDoc.html>`_ class, where the :class:`Editor` uses additionally the capabilites of all the :ref:`editor-mixc`. 
+
+.. figure:: ../images/classes_Editor.png
+    :align: center
+    :width: 100%
+    
+    Class UML diagram
+
+.. _editor-mixc:
+
+Mixin classes
+-------------
+
+Mixin classes are intended to work with the :class:`EditorBase` interface only. The reason for creating the mixin objects is to devide the functionality of particular features and increase the code readability.
+
+.. autoclass:: editor.AutoCompleteMixin
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+.. autoclass:: editor.MarkerAndStyleMixin
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autoclass:: editor.FindAndReplaceMixin
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+.. _editor-mainc:
+	
+Main classes
+------------
+
+.. autoclass:: editor.GotoLineDialog
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autoclass:: editor.EditorBase
+    :members:
+    :undoc-members:
+    :show-inheritance:
+	
+.. autoclass:: editor.Editor
+    :members:
+    :undoc-members:
+    :show-inheritance:
+	
+	
+Quality assurance 
+=================
+
+Code quality standard test::
+	
+	support/pylint_editor.bat
+	
+.. note:: `C0103 coding warning <http://pylint-messages.wikidot.com/messages:c0103>`_ has been disabled as the code is inherited from wxPython using ``CamelCase`` for object names. According to `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_, ``underscore_separated_names`` should be used, but the document recommends to keep in line with coding style of extended code.
+
+.. note:: `E1101 error <http://pylint-messages.wikidot.com/messages:e1101>`_ has been disabled. The pylint otherwise complains about non-existing members within the :ref:`editor-mixc`, which is misleading.
+    
+:doc:`Unittested <unittest>` code::
+
+	source/unittest/test_editor.py
+	
+Unittest coverage::
+
+	support/cover_editor.bat
+
+Selftest
+========
+
+Starting the self test through the unittest support code::
+
+    support/selftest_editor.bat 

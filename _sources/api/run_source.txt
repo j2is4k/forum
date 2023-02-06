@@ -1,0 +1,5 @@
+Python Application Starter Source Code
+======================================
+
+.. literalinclude:: ../../../source/app_exe/Release/run.py
+    :linenos:

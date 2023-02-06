@@ -1,0 +1,221 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>macro — Encapsulates user defined helper scripts &mdash; Forum Documentation 1.9.3a documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Forum Documentation 1.9.3a documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Forum Documentation 1.9.3a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">macro</span></tt> &#8212; Encapsulates user defined helper scripts</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#functionality">Functionality</a></li>
+<li><a class="reference internal" href="#api-description">API description</a><ul>
+<li><a class="reference internal" href="#macro-code-persistence">Macro code persistence</a></li>
+<li><a class="reference internal" href="#wx-gui-widgets">wx GUI widgets</a><ul>
+<li><a class="reference internal" href="#main-classes">Main classes</a></li>
+<li><a class="reference internal" href="#dialog-classes">Dialog classes</a></li>
+<li><a class="reference internal" href="#support-classes">Support classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#quality-assurance">Quality assurance</a></li>
+<li><a class="reference internal" href="#selftest">Selftest</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/api/macro.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-macro">
+<span id="macro-encapsulates-user-defined-helper-scripts"></span><h1><a class="reference internal" href="#module-macro" title="macro: Encapsulates user defined helper scripts. (Windows)"><tt class="xref py py-mod docutils literal"><span class="pre">macro</span></tt></a> &#8212; Encapsulates user defined helper scripts<a class="headerlink" href="#module-macro" title="Permalink to this headline">¶</a></h1>
+<div class="sidebar">
+<p class="first sidebar-title">Summary</p>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Files:</th><td class="field-body"><a class="reference internal" href="macro_source.html"><em>source</em></a>, <a class="reference internal" href="test_macro_source.html"><em>unittest</em></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Target:</th><td class="field-body">developers</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status:</th><td class="field-body">mature</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr class="docutils" />
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>Functionality requirements are described in the dedicated document: <tt class="xref download docutils literal"><span class="pre">SDD</span> <span class="pre">Macro</span></tt>.</p>
+</div>
+<div class="section" id="functionality">
+<h2>Functionality<a class="headerlink" href="#functionality" title="Permalink to this headline">¶</a></h2>
+<p>Functionality offered within the macro module can be summarised as follows</p>
+<blockquote>
+<div><ul class="simple">
+<li>Contains Editor Instance for pretty formatting, autocomplete etc.</li>
+<li>Delivered as App toolbar</li>
+<li>Dialog Widget for macro customisation</li>
+<li>Event Bindings/ Handlers</li>
+<li>Generic interface for image getter functions</li>
+<li>Instrument Add Dialog Widget</li>
+<li>Instrument listing for selection used in macro invocation</li>
+<li>List Control for Image processing</li>
+<li>Macro Frame</li>
+<li>Macro Panel, a place holder for all widgets, import, export handlers, shortcuts binding (Insert, F2, Del), general event handlers</li>
+<li>Macro definitions stored / loaded from file</li>
+<li>Macro source parser</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Preconditions is to have Python &gt; 2.7.x and wxPython &gt;= 2.8.9.1 and wx AGW version &gt;= 0.9.2.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Icons and images as shown on the figure below are not part of the delivery, but the generic interface for binding the images is implemented.</p>
+</div>
+</div>
+<div class="section" id="api-description">
+<h2>API description<a class="headerlink" href="#api-description" title="Permalink to this headline">¶</a></h2>
+<p>Reference document for a software developer implementing the module into the higher level framework. The following documentation has been generated from the <a class="reference internal" href="macro_source.html"><em>Macro Source code</em></a>.</p>
+<div class="figure align-center">
+<img alt="../_images/classes_Macro.png" src="../_images/classes_Macro.png" style="width: 100%;" />
+<p class="caption">Class UML diagram</p>
+</div>
+<div class="section" id="macro-code-persistence">
+<h3>Macro code persistence<a class="headerlink" href="#macro-code-persistence" title="Permalink to this headline">¶</a></h3>
+<p>The macro definitions are stored/loaded to/from a file location specified in constants.py module. The API is specified below</p>
+</div>
+<div class="section" id="wx-gui-widgets">
+<h3>wx GUI widgets<a class="headerlink" href="#wx-gui-widgets" title="Permalink to this headline">¶</a></h3>
+<p>The second groupd of the API description focuses on wxPython objects used within the module. You can read the specification from top down as is written or use it as reference library. The top GUI object is the <tt class="xref py py-class docutils literal"><span class="pre">ToolBar</span></tt> propagating down to <tt class="xref py py-class docutils literal"><span class="pre">Frame</span></tt> and <tt class="xref py py-class docutils literal"><span class="pre">Panel</span></tt>. The latest one is the core of the module implementing the classical widgets, dialogs and macro defintion loading and storing. The paragraph is devided to the groups: <a class="reference internal" href="#macro-mc"><em>Main classes</em></a>, <a class="reference internal" href="#macro-dc"><em>Dialog classes</em></a> and <a class="reference internal" href="#macro-sc"><em>Support classes</em></a>.</p>
+<div class="section" id="main-classes">
+<span id="macro-mc"></span><h4>Main classes<a class="headerlink" href="#main-classes" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="dialog-classes">
+<span id="macro-dc"></span><h4>Dialog classes<a class="headerlink" href="#dialog-classes" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="support-classes">
+<span id="macro-sc"></span><h4>Support classes<a class="headerlink" href="#support-classes" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+</div>
+<div class="section" id="quality-assurance">
+<h2>Quality assurance<a class="headerlink" href="#quality-assurance" title="Permalink to this headline">¶</a></h2>
+<p>Code quality standard test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">support</span><span class="o">/</span><span class="n">pylint_macro</span><span class="o">.</span><span class="n">bat</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Please note that <a class="reference external" href="http://pylint-messages.wikidot.com/messages:c0103">C0103 coding warning</a> has been disabled, as the code is inherited from wxPython using <tt class="docutils literal"><span class="pre">CamelCase</span></tt> for object names. According to <a class="reference external" href="http://www.python.org/dev/peps/pep-0008/">PEP8</a>, <tt class="docutils literal"><span class="pre">underscore_separated_names</span></tt> should be used, but the document recommends to keep in line with coding style of extended code.</p>
+</div>
+<p><a class="reference internal" href="../unittest.html"><em>Unittested</em></a> code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">source</span><span class="o">/</span><span class="n">unittest</span><span class="o">/</span><span class="n">test_macro_toolbar</span><span class="o">.</span><span class="n">py</span>
+<span class="n">source</span><span class="o">/</span><span class="n">unittest</span><span class="o">/</span><span class="n">test_macro_panel</span><span class="o">.</span><span class="n">py</span>
+<span class="n">source</span><span class="o">/</span><span class="n">unittest</span><span class="o">/</span><span class="n">test_macro_instrument</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Unittest coverage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">support</span><span class="o">/</span><span class="n">cover_macro</span><span class="o">.</span><span class="n">bat</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="selftest">
+<h2>Selftest<a class="headerlink" href="#selftest" title="Permalink to this headline">¶</a></h2>
+<p>Starting the self test through the unittest support code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">support</span><span class="o">/</span><span class="n">selftest_macro</span><span class="o">.</span><span class="n">bat</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Forum Documentation 1.9.3a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, noriba GmbH.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
